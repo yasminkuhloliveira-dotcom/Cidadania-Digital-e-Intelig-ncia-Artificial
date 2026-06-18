@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexão Segura | Cidadania Digital e IA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="logo">Conexão<span>Segura</span></h1>
+            <button id="toggle-theme" class="btn-accessible" aria-label="Alternar modo escuro">Ajustar Contraste</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h2>Cidadania Digital e Inteligência Artificial</h2>
+            <p>O avanço das IAs trouxe ferramentas incríveis, mas também desafios urgentes. Entenda o impacto das <strong>deepfakes</strong> e da desinformação automatizada na nossa sociedade e aprenda a se proteger.</p>
+        </section>
+
+        <section class="info-section">
+            <h3>O que são Deepfakes?</h3>
+            <p>São vídeos, áudios ou imagens gerados por inteligência artificial que imitam a aparência e a voz de pessoas reais com extrema precisão. Embora tenham aplicações legítimas no cinema, são frequentemente usadas para espalhar desinformação e golpes.</p>
+            
+            <div class="tips-container">
+                <div class="tip-card">
+                    <h4>Como identificar?</h4>
+                    <ul>
+                        <li>Piscadas de olhos não naturais ou ausentes.</li>
+                        <li>Falhas na iluminação e sombras no rosto.</li>
+                        <li>Áudio dessincronizado com os movimentos labiais.</li>
+                        <li>Bordas borradas ao redor do rosto ou cabelo.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-section">
+            <h3>Desafio da Verdade: Teste seus Olhos</h3>
+            <p>Você consegue diferenciar um fato de uma manipulação por IA? Responda à pergunta abaixo:</p>
+            
+            <div class="quiz-container">
+                <p class="quiz-question">"Um vídeo mostra um líder político declarando guerra, mas a voz falha levemente e o fundo do cenário parece estático demais." O que isso provavelmente é?</p>
+                
+                <form id="quiz-form">
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="quiz-answer" value="fato"> A) Um vídeo real gravado com câmera de baixa qualidade.
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="quiz-answer" value="deepfake"> B) Uma Deepfake potencial gerada para criar pânico.
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="quiz-answer" value="satira"> C) Apenas uma sátira humorística autorizada.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">Verificar Resposta</button>
+                </form>
+                
+                <div id="quiz-feedback" class="feedback-box hidden"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Conexão Segura. Desenvolvido para a campanha de Cidadania Digital.</p>
+        <p>Fontes de dados: Comitê Gestor da Internet no Brasil (CGI.br) e Redes de Fact-Checking.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
