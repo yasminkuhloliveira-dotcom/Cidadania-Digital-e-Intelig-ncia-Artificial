@@ -1,4 +1,3 @@
-// Aguarda o carregamento completo do DOM para evitar erros de execução
 document.addEventListener("DOMContentLoaded", () => {
     
     /* ==========================================================================
@@ -10,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
         document.documentElement.setAttribute("data-theme", savedTheme);
+        themeButton.setAttribute('aria-label', savedTheme === 'dark' ? "Alternar para modo claro" : "Alternar para modo escuro");
     }
 
     themeButton.addEventListener("click", () => {
@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Aplica o novo tema e salva a escolha do usuário
         document.documentElement.setAttribute("data-theme", newTheme);
         localStorage.setItem("theme", newTheme);
+
+        // Atualiza a acessibilidade para leitores de tela
+        themeButton.setAttribute('aria-label', newTheme === 'dark' ? "Alternar para modo claro" : "Alternar para modo escuro");
     });
 
     /* ==========================================================================
@@ -62,3 +65,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
