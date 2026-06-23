@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Cidadania Digital | Inteligência Artificial e Sociedade</title>
     
-    <!-- ESTILIZAÇÃO INTERNA (CSS3 COMPLETO) -->
     <style>
-        /* Variáveis de Design e Temas (Nível 4 em Usabilidade) */
         :root {
             --bg-main: #f4f7f9;
             --bg-card: #ffffff;
@@ -58,7 +56,6 @@
             padding: 0 24px;
         }
 
-        /* Cabeçalho */
         .main-header {
             background-color: var(--primary);
             color: #ffffff;
@@ -97,7 +94,6 @@
             color: var(--primary-hover);
         }
 
-        /* Hero Seção */
         .hero-section {
             padding: 60px 0;
             text-align: center;
@@ -123,7 +119,6 @@
             margin-bottom: 32px;
         }
 
-        /* Grid Informativo com Flexbox */
         .info-section {
             padding: 60px 0;
         }
@@ -158,11 +153,6 @@
             border-color: var(--primary);
         }
 
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-
         .tip-card h4 {
             font-size: 1.25rem;
             margin-bottom: 10px;
@@ -174,7 +164,6 @@
             font-size: 0.95rem;
         }
 
-        /* Simulador Interativo do Quiz */
         .quiz-section {
             padding: 60px 0;
             background-color: rgba(0,0,0,0.01);
@@ -296,7 +285,6 @@
             border: 1px solid var(--error);
         }
 
-        /* Rodapé */
         .main-footer {
             background-color: #111827;
             color: #9ca3af;
@@ -312,7 +300,6 @@
             color: #6b7280;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             .hero-section h2 { font-size: 1.8rem; }
             .tips-grid { flex-direction: column; }
@@ -323,7 +310,6 @@
 </head>
 <body>
 
-    <!-- CABEÇALHO SEMÂNTICO -->
     <header class="main-header">
         <div class="container header-container">
             <h1 class="logo">Conexão<span>Segura</span></h1>
@@ -331,7 +317,6 @@
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="main-content">
         <section class="hero-section">
             <div class="container">
@@ -347,8 +332,15 @@
                 
                 <div class="tips-grid">
                     <article class="tip-card">
-                        <div class="card-icon">👁️</div>
                         <h4>Olhar Artificial</h4>
                         <p>Piscadas de olhos ausentes, movimentos oculares rígidos ou reflexos inconsistentes.</p>
+                    </article>
+                    <article class="tip-card">
+                        <h4>Dessincronia de Áudio</h4>
+                        <p>Pequenos atrasos entre a fala e a movimentação labial, com tom de voz robótico.</p>
+                    </article>
+                    <article class="tip-card">
+                        <h4>Sombras Inconsistentes</h4>
+                        <p>Iluminação facial que não acompanha o cenário. Bordas do rosto borradas.</p>
                     </article>
                     <article class="tip-card">
