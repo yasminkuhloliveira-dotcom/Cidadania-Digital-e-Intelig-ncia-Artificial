@@ -1,74 +1,122 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conexão Segura | Cidadania Digital e IA</title>
+    <title>Portal Cidadania Digital | Inteligência Artificial e Sociedade</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <!-- Cabeçalho Principal Acessível -->
     <header class="main-header">
         <div class="header-container">
-            <h1 class="logo">Conexão<span>Segura</span></h1>
-            <button id="toggle-theme" class="btn-accessible" aria-label="Alternar modo escuro">Ajustar Contraste</button>
+            <h1 class="logo">Cidadania<span>IA</span></h1>
+            <button id="toggle-theme" class="btn-accessible" aria-label="Alternar para o modo escuro de alto contraste">Ajustar Contraste</button>
         </div>
     </header>
 
-    <main>
+    <!-- Conteúdo Principal do Portal -->
+    <main class="main-content">
+        
+        <!-- Seção Hero: Introdução de Alto Impacto -->
         <section class="hero-section">
-            <h2>Cidadania Digital e Inteligência Artificial</h2>
-            <p>O avanço das IAs trouxe ferramentas incríveis, mas também desafios urgentes. Entenda o impacto das <strong>deepfakes</strong> e da desinformação automatizada na nossa sociedade e aprenda a se proteger.</p>
+            <div class="container">
+                <h2>O Desafio da Verdade na Era da IA</h2>
+                <p>As ferramentas de Inteligência Artificial revolucionaram a criação de conteúdo, mas também trouxeram as <strong>deepfakes</strong> e a desinformação automatizada. Proteger a nossa sociedade começa com a educação digital e o desenvolvimento do pensamento crítico.</p>
+            </div>
         </section>
 
+        <!-- Seção de Cartões Educativos (Layout Flexbox) -->
         <section class="info-section">
-            <h3>O que são Deepfakes?</h3>
-            <p>São vídeos, áudios ou imagens gerados por inteligência artificial que imitam a aparência e a voz de pessoas reais com extrema precisão. Embora tenham aplicações legítimas no cinema, são frequentemente usadas para espalhar desinformação e golpes.</p>
-            
-            <div class="tips-container">
-                <div class="tip-card">
-                    <h4>Como identificar?</h4>
-                    <ul>
-                        <li>Piscadas de olhos não naturais ou ausentes.</li>
-                        <li>Falhas na iluminação e sombras no rosto.</li>
-                        <li>Áudio dessincronizado com os movimentos labiais.</li>
-                        <li>Bordas borradas ao redor do rosto ou cabelo.</li>
-                    </ul>
+            <div class="container">
+                <h3>Como Identificar Mídias Manipuladas?</h3>
+                <p class="section-subtitle">Fique atento a essas quatro anomalias comuns geradas por algoritmos sintéticos:</p>
+                
+                <div class="tips-grid">
+                    <article class="tip-card">
+                        <div class="card-icon">👁️</div>
+                        <h4>Olhar Artificial</h4>
+                        <p>Piscadas de olhos ausentes, movimentos oculares rígidos ou reflexos duplos que não condizem com o ambiente real.</p>
+                    </article>
+
+                    <article class="tip-card">
+                        <div class="card-icon">🔊</div>
+                        <h4>Dessincronia de Áudio</h4>
+                        <p>Pequenos atrasos entre a fala e a movimentação dos lábios, acompanhados por alterações robóticas no tom da voz.</p>
+                    </article>
+
+                    <article class="tip-card">
+                        <div class="card-icon">💡</div>
+                        <h4>Sombras Inconsistentes</h4>
+                        <p>Iluminação facial que não acompanha o cenário de fundo. Bordas das orelhas e do cabelo frequentemente aparecem borradas.</p>
+                    </article>
+
+                    <article class="tip-card">
+                        <div class="card-icon">🖼️</div>
+                        <h4>Cenários Estáticos</h4>
+                        <p>Planos de fundo excessivamente parados ou com distorções estranhas quando objetos ou pessoas se movem na frente deles.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
+        <!-- Seção do Simulador Interativo (Manipulação Dinâmica do DOM) -->
         <section class="quiz-section">
-            <h3>Desafio da Verdade: Teste seus Olhos</h3>
-            <p>Você consegue diferenciar um fato de uma manipulação por IA? Responda à pergunta abaixo:</p>
-            
-            <div class="quiz-container">
-                <p class="quiz-question">"Um vídeo mostra um líder político declarando guerra, mas a voz falha levemente e o fundo do cenário parece estático demais." O que isso provavelmente é?</p>
+            <div class="container">
+                <h3>Simulador de Detecção: Deepfake ou Fato?</h3>
+                <p class="section-subtitle">Analise o caso apresentado pelo painel de controle e decida o veredito ético da mídia.</p>
                 
-                <form id="quiz-form">
-                    <div class="form-group">
-                        <label>
-                            <input type="radio" name="quiz-answer" value="fato"> A) Um vídeo real gravado com câmera de baixa qualidade.
-                        </label>
+                <div class="simulator-wrapper">
+                    <!-- Painel de Placar Dinâmico -->
+                    <div class="scoreboard">
+                        <div class="score-item">Acertos: <span id="counter-success">0</span></div>
+                        <div class="score-item">Erros: <span id="counter-errors">0</span></div>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="radio" name="quiz-answer" value="deepfake"> B) Uma Deepfake potencial gerada para criar pânico.
-                        </label>
+
+                    <!-- Bloco do Caso Atualizado por JS -->
+                    <div class="case-box">
+                        <span class="case-badge">Caso em Análise</span>
+                        <p id="case-description" class="case-text">Carregando cenário de análise...</p>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="radio" name="quiz-answer" value="satira"> C) Apenas uma sátira humorística autorizada.
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-submit">Verificar Resposta</button>
-                </form>
-                
-                <div id="quiz-feedback" class="feedback-box hidden"></div>
+
+                    <!-- Formulário Interativo -->
+                    <form id="quiz-form">
+                        <div class="options-group">
+                            <label class="option-label">
+                                <input type="radio" name="quiz-answer" value="fato">
+                                <span class="custom-radio"></span>
+                                <span class="label-text">Mídia Confiável (Fato Real)</span>
+                            </label>
+                            
+                            <label class="option-label">
+                                <input type="radio" name="quiz-answer" value="deepfake">
+                                <span class="custom-radio"></span>
+                                <span class="label-text">Mídia Sintética (Deepfake/IA)</span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit" id="btn-action">Verificar Veredito</button>
+                        </div>
+                    </form>
+
+                    <!-- Feedback Box Dinâmico -->
+                    <div id="quiz-feedback" class="feedback-box hidden"></div>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Rodapé Institucional Autoral -->
     <footer class="main-footer">
-        <p>&copy; 2026 Conexão Segura. Desenvolvido para a campanha de Cidadania Digital.</p>
-        <p>Fontes de dados: 
+        <div class="container">
+            <p>&copy; 2026 Portal Conexão Segura. Desenvolvido de forma autoral para a Campanha de Conscientização Comunitária em Cidadania Digital.</p>
+            <p class="footer-sources">Fontes e Diretrizes Teóricas: Comitê Gestor da Internet no Brasil (CGI.br) &amp; Redes Nacionais de Fact-Checking.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
