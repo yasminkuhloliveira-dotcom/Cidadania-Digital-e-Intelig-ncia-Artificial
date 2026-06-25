@@ -1,346 +1,211 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Cidadania Digital | Inteligência Artificial e Sociedade</title>
-    
+    <title>Cidadania Digital e Inteligência Artificial</title>
     <style>
+        /* --- ESTILOS PADRÃO --- */
         :root {
-            --bg-main: #f4f7f9;
+            --bg-principal: #f8fafc;
+            --bg-topo: #00468c;
             --bg-card: #ffffff;
-            --text-main: #2d3748;
-            --text-muted: #718096;
-            --primary: #0056b3;
-            --primary-hover: #004085;
-            --accent: #00d1b2;
-            --success: #2f855a;
-            --success-bg: #c6f6d5;
-            --error: #9b2c2c;
-            --error-bg: #fed7d7;
-            --border: #e2e8f0;
-        }
-
-        [data-theme="dark"] {
-            --bg-main: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #38bdf8;
-            --primary-hover: #7dd3fc;
-            --accent: #00d1b2;
-            --success: #4ade80;
-            --success-bg: #064e3b;
-            --error: #f87171;
-            --error-bg: #7f1d1d;
-            --border: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --texto-escuro: #1e293b;
+            --texto-claro: #ffffff;
+            --texto-mutado: #64748b;
+            --borda: #e2e8f0;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-escuro);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Topo / Navbar */
+        header {
+            background-color: var(--bg-topo);
+            color: var(--texto-claro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Botão de Contraste */
+        .btn-contraste {
+            background-color: transparent;
+            color: var(--texto-claro);
+            border: 2px solid var(--texto-claro);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn-contraste:hover {
+            background-color: var(--texto-claro);
+            color: var(--bg-topo);
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .introducao h2 {
+            font-size: 32px;
+            color: #00468c;
+            margin-bottom: 10px;
+        }
+
+        .introducao p {
+            font-size: 16px;
+            color: var(--texto-mutado);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
+        .secao-identificar h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
-        .main-header {
-            background-color: var(--primary);
-            color: #ffffff;
-            padding: 1.2rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        .secao-identificar > p {
+            color: var(--texto-mutado);
+            margin-bottom: 30px;
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Grid de Cartões (Layout de 3 colunas) */
+        .container-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .btn-accessible {
-            background-color: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 8px 16px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-accessible:hover {
-            background-color: #ffffff;
-            color: var(--primary-hover);
-        }
-
-        .hero-section {
-            padding: 60px 0;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(0,86,179,0.05) 0%, rgba(0,209,178,0.05) 100%);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-            color: var(--primary);
-        }
-
-        .hero-section p {
-            max-width: 750px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-        }
-
-        .info-section {
-            padding: 60px 0;
-        }
-
-        .info-section h3, .quiz-section h3 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-        }
-
-        .tips-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            justify-content: center;
-        }
-
-        .tip-card {
+        .card {
             background-color: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid var(--borda);
             border-radius: 8px;
-            padding: 24px;
-            flex: 1 1 calc(50% - 24px);
-            min-width: 280px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .tip-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
-            border-color: var(--primary);
+        .card h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+            color: #00468c;
         }
 
-        .tip-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-            color: var(--primary);
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--texto-mutado);
+            line-height: 1.5;
         }
 
-        .tip-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
+
+        /* --- ESTILOS DE ALTO CONTRASTE --- */
+        body.alto-contraste {
+            background-color: #000000 !important;
+            color: #ffffff !important;
         }
 
-        .quiz-section {
-            padding: 60px 0;
-            background-color: rgba(0,0,0,0.01);
+        body.alto-contraste header {
+            background-color: #000000 !important;
+            border-bottom: 2px solid #ffffff;
         }
 
-        .simulator-wrapper {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            max-width: 700px;
-            margin: 0 auto;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        body.alto-contraste .btn-contraste {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #ffffff !important;
         }
 
-        .scoreboard {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-bottom: 2px dashed var(--border);
-            padding-bottom: 12px;
+        body.alto-contraste .introducao h2,
+        body.alto-contraste .card h4 {
+            color: #ffff00 !important; /* Amarelo destaca muito bem no preto */
         }
 
-        .score-item span {
-            color: var(--primary);
+        body.alto-contraste .introducao p,
+        body.alto-contraste .secao-identificar > p,
+        body.alto-contraste .card p {
+            color: #ffffff !important;
         }
 
-        .case-box {
-            background-color: var(--bg-main);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .case-badge {
-            display: inline-block;
-            background-color: var(--primary);
-            color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        .case-text {
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
-        .options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .option-label:hover {
-            border-color: var(--primary);
-        }
-
-        .option-label input[type="radio"] {
-            margin-right: 12px;
-            cursor: pointer;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: var(--primary);
-            color: #ffffff;
-            border: none;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .feedback-box {
-            margin-top: 24px;
-            padding: 16px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        .feedback-box.success {
-            background-color: var(--success-bg);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .feedback-box.error {
-            background-color: var(--error-bg);
-            color: var(--error);
-            border: 1px solid var(--error);
-        }
-
-        .main-footer {
-            background-color: #111827;
-            color: #9ca3af;
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            margin-top: 60px;
-            border-top: 4px solid var(--primary);
-        }
-
-        .footer-sources {
-            margin-top: 10px;
-            color: #6b7280;
-        }
-
-        @media (max-width: 768px) {
-            .hero-section h2 { font-size: 1.8rem; }
-            .tips-grid { flex-direction: column; }
-            .tip-card { flex: 1 1 100%; }
-            .simulator-wrapper { padding: 20px; }
+        body.alto-contraste .card {
+            background-color: #121212 !important;
+            border: 2px solid #ffffff !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container header-container">
-            <h1 class="logo">Conexão<span>Segura</span></h1>
-            <button id="toggle-theme" class="btn-accessible" aria-label="Alternar modo escuro">Ajustar Contraste</button>
-        </div>
+    <!-- Topo da página -->
+    <header>
+        <h1>ConexãoSegura</h1>
+        <button class="btn-contraste" id="toggle-contraste">Ajustar Contraste</button>
     </header>
 
-    <main class="main-content">
-        <section class="hero-section">
-            <div class="container">
-                <h2>Cidadania Digital e Inteligência Artificial</h2>
-                <p>O avanço das IAs trouxe ferramentas incríveis, mas também desafios urgentes. Entenda o impacto das <strong>deepfakes</strong> e da desinformação na nossa sociedade e aprenda a se proteger.</p>
-            </div>
+    <!-- Conteúdo do Site -->
+    <main>
+        <section class="introducao">
+            <h2>Cidadania Digital e Inteligência Artificial</h2>
+            <p>O avanço das IAs trouxe ferramentas incríveis, mas também desafios urgentes. Entenda o impacto das deepfakes e da desinformação na nossa sociedade e aprenda a se proteger.</p>
         </section>
 
-        <section class="info-section">
-            <div class="container">
-                <h3>O que são Deepfakes e Como Identificar?</h3>
-                <p class="section-subtitle">Fique atento a essas anomalias comuns geradas por algoritmos sintéticos:</p>
+        <section class="secao-identificar">
+            <h3>O que são Deepfakes e Como Identificar?</h3>
+            <p>Fique atento a essas anomalias comuns geradas por algoritmos sintéticos:</p>
+
+            <!-- Container com os 3 blocos/cartões -->
+            <div class="container-cards">
                 
-                <div class="tips-grid">
-                    <article class="tip-card">
-                        <h4>Olhar Artificial</h4>
-                        <p>Piscadas de olhos ausentes, movimentos oculares rígidos ou reflexos inconsistentes.</p>
-                    </article>
-                    <article class="tip-card">
-                        <h4>Dessincronia de Áudio</h4>
-                        <p>Pequenos atrasos entre a fala e a movimentação labial, com tom de voz robótico.</p>
-                    </article>
-                    <article class="tip-card">
-                        <h4>Sombras Inconsistentes</h4>
-                        <p>Iluminação facial que não acompanha o cenário. Bordas do rosto borradas.</p>
-                    </article>
-                    <article class="tip-card">
+                <div class="card">
+                    <h4>Olhar Artificial</h4>
+                    <p>Piscadas de olhos ausentes, movimentos oculares rígidos ou reflexos inconsistentes.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Dessincronia de Áudio</h4>
+                    <p>Pequenos atrasos entre a fala e a movimentação labial, com tom de voz robótico.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Sombras Inconsistentes</h4>
+                    <p>Iluminação facial que não acompanha o cenário. Bordas do rosto borradas.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Código JavaScript que faz o botão funcionar -->
+    <script>
+        const botao = document.getElementById('toggle-contraste');
+        
+        botao.addEventListener('click', () => {
+            document.body.classList.toggle('alto-contraste');
+        });
+    </script>
+
+</body>
+</html>
