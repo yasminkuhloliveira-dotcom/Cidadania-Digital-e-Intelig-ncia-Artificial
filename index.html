@@ -1,211 +1,187 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cidadania Digital e Inteligência Artificial</title>
-    <style>
-        /* --- ESTILOS PADRÃO --- */
-        :root {
-            --bg-principal: #f8fafc;
-            --bg-topo: #00468c;
-            --bg-card: #ffffff;
-            --texto-escuro: #1e293b;
-            --texto-claro: #ffffff;
-            --texto-mutado: #64748b;
-            --borda: #e2e8f0;
-        }
+<!-- Seção do Jogo no seu Site -->
+<section id="jogo-cidadania" class="container-jogo">
+    <h2>🎮 Desafio da Veracidade Digital</h2>
+    <p>Coloque suas habilidades à prova! Analise os casos abaixo e descubra o que é Real e o que é Fake.</p>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-principal);
-            color: var(--texto-escuro);
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Topo / Navbar */
-        header {
-            background-color: var(--bg-topo);
-            color: var(--texto-claro);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        /* Botão de Contraste */
-        .btn-contraste {
-            background-color: transparent;
-            color: var(--texto-claro);
-            border: 2px solid var(--texto-claro);
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .btn-contraste:hover {
-            background-color: var(--texto-claro);
-            color: var(--bg-topo);
-        }
-
-        /* Conteúdo Principal */
-        main {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .introducao h2 {
-            font-size: 32px;
-            color: #00468c;
-            margin-bottom: 10px;
-        }
-
-        .introducao p {
-            font-size: 16px;
-            color: var(--texto-mutado);
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-        }
-
-        .secao-identificar h3 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .secao-identificar > p {
-            color: var(--texto-mutado);
-            margin-bottom: 30px;
-        }
-
-        /* Grid de Cartões (Layout de 3 colunas) */
-        .container-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--borda);
-            border-radius: 8px;
-            padding: 25px;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card h4 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 18px;
-            color: #00468c;
-        }
-
-        .card p {
-            margin: 0;
-            font-size: 14px;
-            color: var(--texto-mutado);
-            line-height: 1.5;
-        }
-
-
-        /* --- ESTILOS DE ALTO CONTRASTE --- */
-        body.alto-contraste {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-        }
-
-        body.alto-contraste header {
-            background-color: #000000 !important;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        body.alto-contraste .btn-contraste {
-            background-color: #ffffff !important;
-            color: #000000 !important;
-            border: 2px solid #ffffff !important;
-        }
-
-        body.alto-contraste .introducao h2,
-        body.alto-contraste .card h4 {
-            color: #ffff00 !important; /* Amarelo destaca muito bem no preto */
-        }
-
-        body.alto-contraste .introducao p,
-        body.alto-contraste .secao-identificar > p,
-        body.alto-contraste .card p {
-            color: #ffffff !important;
-        }
-
-        body.alto-contraste .card {
-            background-color: #121212 !important;
-            border: 2px solid #ffffff !important;
-            box-shadow: none !important;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Topo da página -->
-    <header>
-        <h1>ConexãoSegura</h1>
-        <button class="btn-contraste" id="toggle-contraste">Ajustar Contraste</button>
-    </header>
-
-    <!-- Conteúdo do Site -->
-    <main>
-        <section class="introducao">
-            <h2>Cidadania Digital e Inteligência Artificial</h2>
-            <p>O avanço das IAs trouxe ferramentas incríveis, mas também desafios urgentes. Entenda o impacto das deepfakes e da desinformação na nossa sociedade e aprenda a se proteger.</p>
-        </section>
-
-        <section class="secao-identificar">
-            <h3>O que são Deepfakes e Como Identificar?</h3>
-            <p>Fique atento a essas anomalias comuns geradas por algoritmos sintéticos:</p>
-
-            <!-- Container com os 3 blocos/cartões -->
-            <div class="container-cards">
-                
-                <div class="card">
-                    <h4>Olhar Artificial</h4>
-                    <p>Piscadas de olhos ausentes, movimentos oculares rígidos ou reflexos inconsistentes.</p>
-                </div>
-
-                <div class="card">
-                    <h4>Dessincronia de Áudio</h4>
-                    <p>Pequenos atrasos entre a fala e a movimentação labial, com tom de voz robótico.</p>
-                </div>
-
-                <div class="card">
-                    <h4>Sombras Inconsistentes</h4>
-                    <p>Iluminação facial que não acompanha o cenário. Bordas do rosto borradas.</p>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <!-- Código JavaScript que faz o botão funcionar -->
-    <script>
-        const botao = document.getElementById('toggle-contraste');
+    <!-- ÁREA DO QUIZ -->
+    <div id="quiz-container">
+        <div class="fase-header">
+            <span id="fase-titulo">Fase 1: Veracidade Facial</span>
+            <span id="fase-progresso">Questão 1 de 4</span>
+        </div>
         
-        botao.addEventListener('click', () => {
-            document.body.classList.toggle('alto-contraste');
-        });
-    </script>
+        <div id="pergunta-midia">
+            <!-- Imagem, áudio ou link simulado aparecerá aqui -->
+        </div>
 
-</body>
-</html>
+        <p id="pergunta-texto">O que você acha desta mídia?</p>
+
+        <div class="botoes-container">
+            <button onclick="verificarResposta(true)" class="btn-real">🟢 Confiável / Real</button>
+            <button onclick="verificarResposta(false)" class="btn-fake">🔴 Suspeito / Fake</button>
+        </div>
+
+        <div id="feedback" class="feedback-oculto"></div>
+    </div>
+</section>
+
+<!-- ESTILIZAÇÃO DO JOGO (CSS) -->
+<style>
+    .container-jogo {
+        padding: 30px;
+        background: #f4f7f6;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: 20px auto;
+        font-family: sans-serif;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #quiz-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+    .fase-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    #pergunta-midia {
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        background: #eee;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    .link-simulado {
+        font-family: monospace;
+        background: #fff3cd;
+        padding: 10px;
+        border: 1px dashed #ffc107;
+        color: #856404;
+    }
+    .botoes-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+    button {
+        padding: 12px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .btn-real { background: #28a745; color: white; }
+    .btn-fake { background: #dc3545; color: white; }
+    button:hover { opacity: 0.9; }
+    #feedback {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .feedback-oculto { display: none; }
+    .acertou { background: #d4edda; color: #155724; display: block !important; }
+    .errou { background: #f8d7da; color: #721c24; display: block !important; }
+</style>
+
+<!-- LÓGICA DO JOGO (JAVASCRIPT) -->
+<script>
+    // Banco de dados de perguntas cobrindo todos os seus pedidos
+    const perguntas = [
+        {
+            fase: "Fase 1: Veracidade Facial (Deepfake)",
+            tipo: "html",
+            conteudo: "📁 <strong>[Imagem Simulada]</strong> Foto de um político famoso com a borda do rosto levemente borrada e reflexos diferentes em cada olho.",
+            texto: "Ao analisar detalhadamente o rosto da pessoa na imagem, ela parece real?",
+            ehReal: false,
+            explicacao: "Fake! Bordas borradas e reflexos inconsistentes nos olhos são anomalias comuns de algoritmos sintéticos."
+        },
+        {
+            fase: "Fase 2: Veracidade de Voz (Áudio IA)",
+            tipo: "html",
+            conteudo: "🔊 <strong>[Áudio Simulado]</strong> Mensagem de voz do seu amigo pedindo dinheiro emprestado, mas com tom robótico e pausas estranhas.",
+            texto: "Essa mensagem de voz é segura?",
+            ehReal: false,
+            explicacao: "Fake! Criminosos usam clonagem de voz por IA. Sempre confirme por outro canal se a pessoa realmente fez o pedido."
+        },
+        {
+            fase: "Fase 3: Veracidade de Link (Phishing)",
+            tipo: "link",
+            conteudo: "http://banc0-b0as-compras.com.br",
+            texto: "Esse link enviado por SMS para recadastrar sua senha bancária é verdadeiro?",
+            ehReal: false,
+            explicacao: "Fake! O link usa letras e números parecidos (como o '0' no lugar do 'o') para imitar sites reais. Bancos não mandam links assim."
+        },
+        {
+            fase: "Fase 4: Mural de Notícias (Fato ou Fake)",
+            tipo: "html",
+            conteudo: "📰 <strong>Mural de Notícias:</strong> 'Cientistas descobrem que comer chocolate antes de dormir cura 100% da insônia, diz blog SaúdeSemFim'.",
+            texto: "Essa notícia que está viralizando nas redes sociais é confiável?",
+            ehReal: false,
+            explicacao: "Fake! Notícias milagrosas sem fontes científicas renomadas (como a OMS ou grandes portais de ciência) geralmente são falsas."
+        }
+    ];
+
+    let indiceAtual = 0;
+
+    function carregarFase() {
+        const questao = perguntas[indiceAtual];
+        document.getElementById("fase-titulo").innerText = questao.fase;
+        document.getElementById("fase-progresso").innerText = `Questão ${indiceAtual + 1} de ${perguntas.length}`;
+        document.getElementById("pergunta-texto").innerText = questao.texto;
+        
+        const midiaContainer = document.getElementById("pergunta-midia");
+        if(questao.tipo === "link") {
+            midiaContainer.innerHTML = `<span class="link-simulado">${questao.conteudo}</span>`;
+        } else {
+            midiaContainer.innerHTML = questao.conteudo;
+        }
+        
+        // Esconde o feedback da questão anterior
+        document.getElementById("feedback").className = "feedback-oculto";
+    }
+
+    function verificarResposta(escolhaUsuario) {
+        const questao = perguntas[indiceAtual];
+        const feedbackDiv = document.getElementById("feedback");
+        
+        if (escolhaUsuario === questao.ehReal) {
+            feedbackDiv.innerHTML = `🎉 Parabéns! ${questao.explicacao}`;
+            feedbackDiv.className = "acertou";
+        } else {
+            feedbackDiv.innerHTML = `❌ Ops! ${questao.explicacao}`;
+            feedbackDiv.className = "errou";
+        }
+
+        // Avança para a próxima pergunta após 4 segundos
+        setTimeout(() => {
+            indiceAtual++;
+            if (indiceAtual < perguntas.length) {
+                carregarFase();
+            } else {
+                exibirFimJogo();
+            }
+        }, 4500);
+    }
+
+    function exibirFimJogo() {
+        document.getElementById("quiz-container").innerHTML = `
+            <h3>🏆 Desafio Concluído!</h3>
+            <p>Você completou o circuito de segurança digital. Continue praticando o pensamento crítico na internet!</p>
+            <button onclick="location.reload()" style="background:#007bff; color:white;">Jogar Novamente</button>
+        `;
+    }
+
+    // Inicializa o jogo ao carregar a página
+    window.onload = carregarFase;
+</script>
