@@ -1,138 +1,105 @@
-/**
- * Script de Controle do Portal de Cidadania Digital 2026
- * Desenvolvido de forma autoral para manipulação do DOM e avaliação em Nível 4.
- */
+// Banco de dados com suporte a mídias estruturadas e URLs reais
+const bancoPerguntas = [
+    {
+        fase: "Fase 1: Veracidade Facial",
+        tipo: "imagem",
+        urlMidia: "assets/imagens/deepfake_rosto.jpg", // Caminho da sua imagem no repositório
+        texto: "Analise os olhos e as bordas do rosto na foto. Trata-se de uma imagem real ou gerada por IA?",
+        ehReal: false,
+        explicacao: "Fake! Os reflexos nos olhos estão desalinhados e as bordas ao redor do cabelo apresentam borrões sintéticos típicos de IA."
+    },
+    {
+        fase: "Fase 2: Veracidade de Voz",
+        tipo: "audio",
+        urlMidia: "assets/audios/clonagem_voz.mp3", // Caminho do seu áudio no repositório
+        texto: "Ouça o áudio com atenção. Essa voz robótica simulando um pedido de ajuda é confiável?",
+        ehReal: false,
+        explicacao: "Fake! O áudio possui cadência artificial e ruídos metálicos que denunciam uma clonagem de voz por inteligência artificial."
+    },
+    {
+        fase: "Fase 3: Veracidade de Links",
+        tipo: "link",
+        urlMidia: "https://banc0-b0as-compras.com.br",
+        texto: "Examine a URL acima cuidadosamente. Esse endereço de site é seguro para navegação?",
+        ehReal: false,
+        explicacao: "Fake! O link usa caracteres substitutos ('0' no lugar da letra 'o') para enganar você através de Phishing."
+    },
+    {
+        fase: "Fase 4: Mural de Notícias",
+        tipo: "noticia",
+        urlMidia: "📰 'Urgente: Nova IA lê pensamentos humanos a quilômetros de distância via satélite, aponta blog desconhecido.'",
+        texto: "Essa manchete jornalística compartilhada em massa é verídica?",
+        ehReal: false,
+        explicacao: "Fake! Notícias bombásticas sem referências científicas ou canais oficiais de imprensa são desinformação pura."
+    }
+];
 
-document.addEventListener("DOMContentLoaded", () => {
+let faseAtual = 0;
+let pontuacaoTotal = 0;
+let comboAcertos = 1;
+
+function inicializarFase() {
+    const dadosFase = bancoPerguntas[faseAtual];
+    document.getElementById("fase-titulo").innerText = dadosFase.fase;
+    document.getElementById("fase-progresso").innerText = `Questão ${faseAtual + 1} de ${bancoPerguntas.length}`;
+    document.getElementById("pergunta-texto").innerText = dadosFase.texto;
     
-    /* ==========================================================================
-       1. SISTEMA DE CONTRASTE E ALTERNAÇÃO DE TEMA (PERSISTENTE)
-       ========================================================================== */
-    const themeButton = document.getElementById("toggle-theme");
+    const display = document.getElementById("pergunta-midia");
+    display.innerHTML = ""; // Limpa mídia anterior
+
+    // Renderiza a mídia correspondente ao tipo de forma real
+    if (dadosFase.tipo === "imagem") {
+        display.innerHTML = `<img src="${dadosFase.urlMidia}" alt="Análise Facial para o Quiz">`;
+    } else if (dadosFase.tipo === "audio") {
+        display.innerHTML = `🔊 <audio controls><source src="${dadosFase.urlMidia}" type="audio/mpeg">Seu navegador não suporta áudio.</audio>`;
+    } else if (dadosFase.tipo === "link") {
+        display.innerHTML = `<span class="link-highlight">${dadosFase.urlMidia}</span>`;
+    } else if (dadosFase.tipo === "noticia") {
+        display.innerHTML = `<div class="link-highlight" style="background:#e2e8f0; color:#2d3748; border-color:#cbd5e1;">${dadosFase.urlMidia}</div>`;
+    }
     
-    // Carrega o estado de tema previamente salvo pelo usuário no navegador
-    const savedTheme = localStorage.getItem("digital-citizenship-theme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    atualizarRotuloBotao(savedTheme);
+    document.getElementById("feedback").className = "feedback-box hidden";
+}
 
-    themeButton.addEventListener("click", () => {
-        const currentTheme = document.documentElement.getAttribute("data-theme");
-        const targetTheme = (currentTheme === "dark") ? "light" : "dark";
-        
-        // Aplica e armazena o novo tema selecionado
-        document.documentElement.setAttribute("data-theme", targetTheme);
-        localStorage.setItem("digital-citizenship-theme", targetTheme);
-        atualizarRotuloBotao(targetTheme);
-    });
-
-    function atualizarRotuloBotao(tema) {
-        if (tema === "dark") {
-            themeButton.textContent = "Modo Claro";
-            themeButton.setAttribute("aria-label", "Alternar para o modo claro");
-        } else {
-            themeButton.textContent = "Ajustar Contraste";
-            themeButton.setAttribute("aria-label", "Alternar para o modo escuro de alto contraste");
-        }
+function verificarResposta(respostaUsuario) {
+    const dadosFase = bancoPerguntas[faseAtual];
+    const itemFeedback = document.getElementById("feedback");
+    
+    if (respostaUsuario === dadosFase.ehReal) {
+        let pontosGanhos = 100 * comboAcertos;
+        pontuacaoTotal += pontosGanhos;
+        itemFeedback.innerHTML = `🎉 Correto! +${pontosGanhos} pts.<br><small>${dadosFase.explicacao}</small>`;
+        itemFeedback.className = "feedback-box correct-ans";
+        comboAcertos++; // Aumenta o multiplicador de streak
+    } else {
+        itemFeedback.innerHTML = `❌ Incorreto!<br><small>${dadosFase.explicacao}</small>`;
+        itemFeedback.className = "feedback-box wrong-ans";
+        comboAcertos = 1; // Reseta o multiplicador
     }
 
-    /* ==========================================================================
-       2. MOTOR DO SIMULADOR INTERATIVO (BANCO DE DADOS E CONTADORES LOGÍCOS)
-       ========================================================================== */
-    // Banco de dados autoral contendo cenários de análise
-    const bancoCasos = [
-        {
-            descricao: "Um vídeo publicado em rede social mostra o Ministro da Educação declarando feriado nacional por um mês. Contudo, ao reparar bem, as orelhas do ministro piscam e desaparecem levemente quando ele se mexe rapidamente.",
-            respostaCorreta: "deepfake",
-            explicacao: "Correto! O desaparecimento de partes do corpo (orelhas, bordas do cabelo) durante movimentos é um indício clássico de falha de renderização de algoritmos de Inteligência Artificial."
-        },
-        {
-            descricao: "Uma gravação de áudio vazada expõe um líder comunitário local confessando um esquema de desvio de verbas. O áudio possui ruídos de vento ao fundo, respiração pesada captada pelo microfone e pausas naturais para engolir a saliva.",
-            respostaCorreta: "fato",
-            explicacao: "Correto! Ruídos orgânicos, imperfeições do ambiente e pausas biológicas estruturadas são indicadores robustos de que a captação mecânica é um registro factual real."
-        },
-        {
-            descricao: "Um pronunciamento oficial em vídeo mostra uma prefeita anunciando cortes severos de verbas na saúde. A voz dela mantém um ritmo robótico contínuo e imutável, e o plano de fundo da sala de reuniões permanece 100% estático, sem qualquer variação de luz.",
-            respostaCorreta: "deepfake",
-            explicacao: "Correto! A linearidade vocal robótica sem picos emocionais somada a fundos absolutamente mortos representam assinaturas comuns de mídias sintetizadas."
-        }
-    ];
+    // Atualiza placar na tela
+    document.getElementById("game-score").innerText = pontuacaoTotal;
+    document.getElementById("game-streak").innerText = `${comboAcertos}x`;
 
-    // Variáveis de Controle de Estado do Sistema
-    let indiceCasoAtual = 0;
-    let totalAcertos = 0;
-    let totalErros = 0;
-    let modoProximaPergunta = false;
-
-    const caseDescription = document.getElementById("case-description");
-    const quizForm = document.getElementById("quiz-form");
-    const feedbackBox = document.getElementById("quiz-feedback");
-    const btnAction = document.getElementById("btn-action");
-    const countSuccess = document.getElementById("counter-success");
-    const countErrors = document.getElementById("counter-errors");
-
-    // Inicializa o primeiro cenário do simulador
-    function carregarCenariaDeAnalise() {
-        if (indiceCasoAtual >= bancoCasos.length) {
-            // Fim da simulação: Apresenta o relatório final consolidado
-            caseDescription.innerHTML = `<strong>Simulação Concluída!</strong><br>Obrigado por apoiar a cidadania digital. Veja seu desempenho final abaixo.`;
-            quizForm.classList.add("hidden");
-            feedbackBox.className = "feedback-box success";
-            feedbackBox.textContent = `Desafio Finalizado! Total de acertos: ${totalAcertos} | Total de erros: ${totalErros}. Continue praticando!`;
-            feedbackBox.classList.remove("hidden");
-            return;
-        }
-
-        // Atualiza os textos do painel com base no índice atual
-        caseDescription.textContent = bancoCasos[indiceCasoAtual].descricao;
-        quizForm.reset();
-        feedbackBox.classList.add("hidden");
-        btnAction.textContent = "Verificar Veredito";
-        modoProximaPergunta = false;
-    }
-
-    // Processamento do Formulário Interativo via API FormData
-    quizForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        // Se o botão estiver no estado de avançar, passa para o próximo caso
-        if (modoProximaPergunta) {
-            indiceCasoAtual++;
-            carregarCenariaDeAnalise();
-            return;
-        }
-
-        const formData = new FormData(quizForm);
-        const respostaUsuario = formData.get("quiz-answer");
-
-        // Validação: Impede envio vazio
-        if (!respostaUsuario) {
-            feedbackBox.className = "feedback-box error";
-            feedbackBox.textContent = "⚠️ Por favor, selecione uma das alternativas antes de dar o veredito!";
-            feedbackBox.classList.remove("hidden");
-            return;
-        }
-
-        const casoAtual = bancoCasos[indiceCasoAtual];
-
-        // Avaliação lógica da resposta informada
-        if (respostaUsuario === casoAtual.respostaCorreta) {
-            totalAcertos++;
-            countSuccess.textContent = totalAcertos;
-            feedbackBox.className = "feedback-box success";
-            feedbackBox.textContent = "🎉 " + casoAtual.explicacao;
+    setTimeout(() => {
+        faseAtual++;
+        if (faseAtual < bancoPerguntas.length) {
+            inicializarFase();
         } else {
-            totalErros++;
-            countErrors.textContent = totalErros;
-            feedbackBox.className = "feedback-box error";
-            feedbackBox.textContent = "❌ Resposta Incorreta! Sinais sutis indicam o oposto. Lembre-se de avaliar as distorções visuais e o comportamento do áudio.";
+            finalizarJogo();
         }
+    }, 5000);
+}
 
-        // Atualiza o estado do botão para permitir o avanço
-        feedbackBox.classList.remove("hidden");
-        btnAction.textContent = "Próximo Caso →";
-        modoProximaPergunta = true;
-    });
+function finalizarJogo() {
+    document.getElementById("quiz-card").innerHTML = `
+        <h3>🏆 Desafio Concluído!</h3>
+        <p>Sua pontuação final foi de <strong>${pontuacaoTotal}</strong> pontos.</p>
+        <p>Você demonstrou ótimos critérios de cidadania e proteção digital!</p>
+        <button onclick="location.reload()" class="btn-game" style="background:#007bff; color:white; margin-top:15px;">Jogar Novamente</button>
+    `;
+}
 
-    // Dispara a montagem inicial da tela
-    carregarCenariaDeAnalise();
-});
+// Inicia o motor do jogo
+window.addEventListener("DOMContentLoaded", inicializarFase);
+</script>
