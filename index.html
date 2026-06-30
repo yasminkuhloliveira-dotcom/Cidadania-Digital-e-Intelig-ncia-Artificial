@@ -1,187 +1,270 @@
-<!-- Seção do Jogo no seu Site -->
-<section id="jogo-cidadania" class="container-jogo">
-    <h2>🎮 Desafio da Veracidade Digital</h2>
-    <p>Coloque suas habilidades à prova! Analise os casos abaixo e descubra o que é Real e o que é Fake.</p>
+<!-- ========================================== -->
+<!-- INÍCIO DA SEÇÃO DO JOGO INTERATIVO       -->
+<!-- ========================================== -->
+<section id="jogo-cidadania" class="game-section">
+    <div class="game-container">
+        <h2>🎮 Desafio da Veracidade Digital</h2>
+        <p>Analise os arquivos de mídia reais e URLs abaixo para acumular pontos no placar!</p>
 
-    <!-- ÁREA DO QUIZ -->
-    <div id="quiz-container">
-        <div class="fase-header">
-            <span id="fase-titulo">Fase 1: Veracidade Facial</span>
-            <span id="fase-progresso">Questão 1 de 4</span>
-        </div>
-        
-        <div id="pergunta-midia">
-            <!-- Imagem, áudio ou link simulado aparecerá aqui -->
+        <!-- SISTEMA DE PLACAR -->
+        <div class="scoreboard">
+            <div class="score-box">⭐ Pontuação: <span id="game-score">0</span> pts</div>
+            <div class="score-box">🎯 Combo: <span id="game-streak">1x</span></div>
         </div>
 
-        <p id="pergunta-texto">O que você acha desta mídia?</p>
+        <!-- ÁREA DO QUIZ -->
+        <div id="quiz-card" class="quiz-card">
+            <div class="quiz-header">
+                <span id="fase-titulo">Carregando...</span>
+                <span id="fase-progresso">Questão 0 de 0</span>
+            </div>
+            
+            <!-- Contêiner dinâmico para mídias reais -->
+            <div id="pergunta-midia" class="media-display"></div>
 
-        <div class="botoes-container">
-            <button onclick="verificarResposta(true)" class="btn-real">🟢 Confiável / Real</button>
-            <button onclick="verificarResposta(false)" class="btn-fake">🔴 Suspeito / Fake</button>
+            <p id="pergunta-texto" class="question-text">Identifique a veracidade do conteúdo acima:</p>
+
+            <div class="game-buttons">
+                <button onclick="verificarResposta(true)" class="btn-game btn-real">🟢 Confiável / Real</button>
+                <button onclick="verificarResposta(false)" class="btn-game btn-fake">🔴 Suspeito / Fake</button>
+            </div>
+
+            <div id="feedback" class="feedback-box hidden"></div>
         </div>
-
-        <div id="feedback" class="feedback-oculto"></div>
     </div>
 </section>
 
-<!-- ESTILIZAÇÃO DO JOGO (CSS) -->
+<!-- ESTILIZAÇÃO COMPATÍVEL COM O SEU REPOSITÓRIO (CSS) -->
 <style>
-    .container-jogo {
-        padding: 30px;
-        background: #f4f7f6;
-        border-radius: 8px;
-        max-width: 600px;
-        margin: 20px auto;
-        font-family: sans-serif;
+    .game-section {
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .game-container {
+        width: 100%;
+        max-width: 650px;
         text-align: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    #quiz-container {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: 15px;
+
+    .scoreboard {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        gap: 15px;
     }
-    .fase-header {
+
+    .score-box {
+        background: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .quiz-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
+        text-align: center;
+    }
+
+    .quiz-header {
         display: flex;
         justify-content: space-between;
-        font-weight: bold;
-        color: #333;
+        font-weight: 700;
+        color: #4a5568;
+        border-bottom: 2px solid #edf2f7;
+        padding-bottom: 12px;
         margin-bottom: 20px;
     }
-    #pergunta-midia {
-        min-height: 100px;
+
+    .media-display {
+        min-height: 150px;
+        background: #f1f5f9;
+        border-radius: 8px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 20px 0;
-        background: #eee;
-        border-radius: 4px;
-        padding: 10px;
-    }
-    .link-simulado {
-        font-family: monospace;
-        background: #fff3cd;
-        padding: 10px;
-        border: 1px dashed #ffc107;
-        color: #856404;
-    }
-    .botoes-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-    }
-    button {
-        padding: 12px 24px;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-    .btn-real { background: #28a745; color: white; }
-    .btn-fake { background: #dc3545; color: white; }
-    button:hover { opacity: 0.9; }
-    #feedback {
-        margin-top: 20px;
         padding: 15px;
-        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    .media-display img {
+        max-width: 100%;
+        max-height: 220px;
+        border-radius: 6px;
+        object-fit: contain;
+    }
+
+    .media-display audio {
+        width: 100%;
+        max-width: 400px;
+        margin-top: 10px;
+    }
+
+    .link-highlight {
+        font-family: 'Courier New', Courier, monospace;
+        background: #fff3cd;
+        color: #856404;
+        padding: 12px;
+        border: 2px dashed #ffeeba;
+        border-radius: 6px;
+        word-break: break-all;
+        font-size: 1.1rem;
         font-weight: bold;
     }
-    .feedback-oculto { display: none; }
-    .acertou { background: #d4edda; color: #155724; display: block !important; }
-    .errou { background: #f8d7da; color: #721c24; display: block !important; }
+
+    .question-text {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 20px;
+    }
+
+    .game-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .btn-game {
+        padding: 14px 28px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.1s, opacity 0.2s;
+    }
+
+    .btn-game:active { transform: scale(0.98); }
+    .btn-real { background: #2ecc71; color: white; }
+    .btn-fake { background: #e74c3c; color: white; }
+
+    .feedback-box {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 6px;
+        font-weight: 600;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .hidden { display: none; }
+    .correct-ans { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .wrong-ans { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 </style>
 
-<!-- LÓGICA DO JOGO (JAVASCRIPT) -->
+<!-- LÓGICA DO MOTOR DO JOGO (JAVASCRIPT) -->
 <script>
-    // Banco de dados de perguntas cobrindo todos os seus pedidos
-    const perguntas = [
+    // Banco de dados dinâmico com mídias reais e links
+    const bancoPerguntas = [
         {
-            fase: "Fase 1: Veracidade Facial (Deepfake)",
-            tipo: "html",
-            conteudo: "📁 <strong>[Imagem Simulada]</strong> Foto de um político famoso com a borda do rosto levemente borrada e reflexos diferentes em cada olho.",
-            texto: "Ao analisar detalhadamente o rosto da pessoa na imagem, ela parece real?",
+            fase: "Fase 1: Veracidade Facial",
+            tipo: "imagem",
+            // IMPORTANTE: Insira uma imagem válida na sua pasta de assets ou use uma URL da web
+            urlMidia: "https://unsplash.com", 
+            texto: "Analise detalhadamente a textura e a iluminação deste rosto. Trata-se de uma imagem real ou gerada por IA?",
             ehReal: false,
-            explicacao: "Fake! Bordas borradas e reflexos inconsistentes nos olhos são anomalias comuns de algoritmos sintéticos."
+            explicacao: "Fake! Elementos com texturas excessivamente suavizadas e padrões de iluminação flutuantes costumam ser gerados por inteligências sintéticas."
         },
         {
-            fase: "Fase 2: Veracidade de Voz (Áudio IA)",
-            tipo: "html",
-            conteudo: "🔊 <strong>[Áudio Simulado]</strong> Mensagem de voz do seu amigo pedindo dinheiro emprestado, mas com tom robótico e pausas estranhas.",
-            texto: "Essa mensagem de voz é segura?",
+            fase: "Fase 2: Veracidade de Voz",
+            tipo: "audio",
+            // IMPORTANTE: Insira um áudio válido na sua pasta ou use uma URL ativa
+            urlMidia: "https://soundhelix.com", 
+            texto: "Ouça o arquivo de voz. Essa entonação robótica com pausas abruptas é segura e humana?",
             ehReal: false,
-            explicacao: "Fake! Criminosos usam clonagem de voz por IA. Sempre confirme por outro canal se a pessoa realmente fez o pedido."
+            explicacao: "Fake! Padrões de respiração ausentes e variações metálicas na voz denunciam clonagem ou modulação artificial por algoritmos de áudio."
         },
         {
-            fase: "Fase 3: Veracidade de Link (Phishing)",
+            fase: "Fase 3: Veracidade de Links",
             tipo: "link",
-            conteudo: "http://banc0-b0as-compras.com.br",
-            texto: "Esse link enviado por SMS para recadastrar sua senha bancária é verdadeiro?",
+            urlMidia: "https://banc0-b0as-compras.com.br",
+            texto: "Examine a estrutura da URL exibida acima. Esse endereço é autêntico para navegação?",
             ehReal: false,
-            explicacao: "Fake! O link usa letras e números parecidos (como o '0' no lugar do 'o') para imitar sites reais. Bancos não mandam links assim."
+            explicacao: "Fake! O domínio substitui as letras 'o' pelo número '0' (zero). Esse truque visual é uma tática criminosa de Phishing para clonar dados."
         },
         {
-            fase: "Fase 4: Mural de Notícias (Fato ou Fake)",
-            tipo: "html",
-            conteudo: "📰 <strong>Mural de Notícias:</strong> 'Cientistas descobrem que comer chocolate antes de dormir cura 100% da insônia, diz blog SaúdeSemFim'.",
-            texto: "Essa notícia que está viralizando nas redes sociais é confiável?",
+            fase: "Fase 4: Mural de Notícias",
+            tipo: "noticia",
+            urlMidia: "📰 'Bomba: Nova inteligência artificial decodifica e lê pensamentos humanos através de satélites, afirma portal NotíciasDoFim.'",
+            texto: "Essa manchete compartilhada em aplicativos de mensagem é real?",
             ehReal: false,
-            explicacao: "Fake! Notícias milagrosas sem fontes científicas renomadas (como a OMS ou grandes portais de ciência) geralmente são falsas."
+            explicacao: "Fake! Desconfie de notícias milagrosas ou alarmantes publicadas por portais desconhecidos e sem fundamentação científica oficial."
         }
     ];
 
-    let indiceAtual = 0;
+    let faseAtual = 0;
+    let pontuacaoTotal = 0;
+    let comboAcertos = 1;
 
-    function carregarFase() {
-        const questao = perguntas[indiceAtual];
-        document.getElementById("fase-titulo").innerText = questao.fase;
-        document.getElementById("fase-progresso").innerText = `Questão ${indiceAtual + 1} de ${perguntas.length}`;
-        document.getElementById("pergunta-texto").innerText = questao.texto;
+    function inicializarFase() {
+        const dadosFase = bancoPerguntas[faseAtual];
+        document.getElementById("fase-titulo").innerText = dadosFase.fase;
+        document.getElementById("fase-progresso").innerText = `Questão ${faseAtual + 1} de ${bancoPerguntas.length}`;
+        document.getElementById("pergunta-texto").innerText = dadosFase.texto;
         
-        const midiaContainer = document.getElementById("pergunta-midia");
-        if(questao.tipo === "link") {
-            midiaContainer.innerHTML = `<span class="link-simulado">${questao.conteudo}</span>`;
-        } else {
-            midiaContainer.innerHTML = questao.conteudo;
+        const display = document.getElementById("pergunta-midia");
+        display.innerHTML = ""; // Limpa a tela anterior
+
+        // Identifica e injeta dinamicamente o arquivo real correspondente
+        if (dadosFase.tipo === "imagem") {
+            display.innerHTML = `<img src="${dadosFase.urlMidia}" alt="Imagem do Quiz de IA">`;
+        } else if (dadosFase.tipo === "audio") {
+            display.innerHTML = `🔊 <audio controls><source src="${dadosFase.urlMidia}" type="audio/mpeg">Seu navegador não suporta áudio nativo.</audio>`;
+        } else if (dadosFase.tipo === "link") {
+            display.innerHTML = `<span class="link-highlight">${dadosFase.urlMidia}</span>`;
+        } else if (dadosFase.tipo === "noticia") {
+            display.innerHTML = `<div class="link-highlight" style="background:#e2e8f0; color:#2d3748; border-color:#cbd5e1;">${dadosFase.urlMidia}</div>`;
         }
         
-        // Esconde o feedback da questão anterior
-        document.getElementById("feedback").className = "feedback-oculto";
+        document.getElementById("feedback").className = "feedback-box hidden";
     }
 
-    function verificarResposta(escolhaUsuario) {
-        const questao = perguntas[indiceAtual];
-        const feedbackDiv = document.getElementById("feedback");
+    function verificarResposta(respostaUsuario) {
+        const dadosFase = bancoPerguntas[faseAtual];
+        const itemFeedback = document.getElementById("feedback");
         
-        if (escolhaUsuario === questao.ehReal) {
-            feedbackDiv.innerHTML = `🎉 Parabéns! ${questao.explicacao}`;
-            feedbackDiv.className = "acertou";
+        if (respostaUsuario === dadosFase.ehReal) {
+            let pontosGanhos = 100 * comboAcertos;
+            pontuacaoTotal += pontosGanhos;
+            itemFeedback.innerHTML = `🎉 Correto! +${pontosGanhos} pontos.<br><small>${dadosFase.explicacao}</small>`;
+            itemFeedback.className = "feedback-box correct-ans";
+            comboAcertos++; 
         } else {
-            feedbackDiv.innerHTML = `❌ Ops! ${questao.explicacao}`;
-            feedbackDiv.className = "errou";
+            itemFeedback.innerHTML = `❌ Incorreto!<br><small>${dadosFase.explicacao}</small>`;
+            itemFeedback.className = "feedback-box wrong-ans";
+            comboAcertos = 1; // Quebra o multiplicador de acertos consecutivos
         }
 
-        // Avança para a próxima pergunta após 4 segundos
+        // Atualiza elementos visuais do placar
+        document.getElementById("game-score").innerText = pontuacaoTotal;
+        document.getElementById("game-streak").innerText = `${comboAcertos}x`;
+
+        // Dá tempo para o usuário ler a explicação antes de passar para a próxima fase
         setTimeout(() => {
-            indiceAtual++;
-            if (indiceAtual < perguntas.length) {
-                carregarFase();
+            faseAtual++;
+            if (faseAtual < bancoPerguntas.length) {
+                inicializarFase();
             } else {
-                exibirFimJogo();
+                finalizarJogo();
             }
-        }, 4500);
+        }, 5000);
     }
 
-    function exibirFimJogo() {
-        document.getElementById("quiz-container").innerHTML = `
+    function finalizarJogo() {
+        document.getElementById("quiz-card").innerHTML = `
             <h3>🏆 Desafio Concluído!</h3>
-            <p>Você completou o circuito de segurança digital. Continue praticando o pensamento crítico na internet!</p>
-            <button onclick="location.reload()" style="background:#007bff; color:white;">Jogar Novamente</button>
-        `;
-    }
-
-    // Inicializa o jogo ao carregar a página
-    window.onload = carregarFase;
-</script>
+            <p>Sua pontuação consolidada foi de <strong>${pontuacaoTotal}</strong> pontos.</p>
+            <p>Você aprimorou seus critérios de proteção digital e identificação de desinformação!</p>
