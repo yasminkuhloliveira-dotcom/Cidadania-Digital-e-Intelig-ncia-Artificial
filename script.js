@@ -65,6 +65,9 @@ function verificarResposta(respostaUsuario) {
     const dadosFase = bancoPerguntas[faseAtual];
     const itemFeedback = document.getElementById("feedback");
     
+    // Torna a caixa de feedback visível removendo a classe hidden
+    itemFeedback.classList.remove("hidden");
+    
     if (respostaUsuario === dadosFase.ehReal) {
         let pontosGanhos = 100 * comboAcertos;
         pontuacaoTotal += pontosGanhos;
@@ -102,9 +105,3 @@ function finalizarJogo() {
 
 // Inicia o motor do jogo
 window.addEventListener("DOMContentLoaded", inicializarFase);
-</script>
-function verificarResposta(tipo) {
-    alert("Você clicou no botão: " + tipo);
-    // Aqui dentro vai a lógica para somar pontos ou mudar de questão
-}
-
