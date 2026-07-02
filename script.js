@@ -103,3 +103,8 @@ function finalizarJogo() {
 // Inicia o motor do jogo
 window.addEventListener("DOMContentLoaded", inicializarFase);
 </script>
+function verificarResposta(tipo) {
+    alert("Você clicou no botão: " + tipo);
+    // Aqui dentro vai a lógica para somar pontos ou mudar de questão
+}
+
