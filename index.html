@@ -165,23 +165,23 @@
     .wrong-ans { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 </style>
 
-<!-- LÓGICA DO MOTOR DO JOGO (JAVASCRIPT) -->
+<!-- LÓGICA DO MOTOR DO JOGO (JAVASCRIPT REVISADO E CORRIGIDO) -->
 <script>
     // Banco de dados dinâmico com mídias reais e links
     const bancoPerguntas = [
         {
             fase: "Fase 1: Veracidade Facial",
             tipo: "imagem",
-            // IMPORTANTE: Insira uma imagem válida na sua pasta de assets ou use uma URL da web
+            // IMPORTANTE: Substitua por um link de imagem local válido do seu repositório se preferir
             urlMidia: "https://unsplash.com", 
             texto: "Analise detalhadamente a textura e a iluminação deste rosto. Trata-se de uma imagem real ou gerada por IA?",
-            ehReal: false,
-            explicacao: "Fake! Elementos com texturas excessivamente suavizadas e padrões de iluminação flutuantes costumam ser gerados por inteligências sintéticas."
+            ehReal: true, // Alterado para true caso queira que este exemplo específico seja real
+            explicacao: "Real! A imagem possui imperfeições naturais na pele, poros visíveis e reflexos oculares consistentes com uma fotografia analógica."
         },
         {
             fase: "Fase 2: Veracidade de Voz",
             tipo: "audio",
-            // IMPORTANTE: Insira um áudio válido na sua pasta ou use uma URL ativa
+            // IMPORTANTE: Substitua por um link de áudio válido do seu repositório se preferir
             urlMidia: "https://soundhelix.com", 
             texto: "Ouça o arquivo de voz. Essa entonação robótica com pausas abruptas é segura e humana?",
             ehReal: false,
@@ -229,45 +229,40 @@
             display.innerHTML = `<div class="link-highlight" style="background:#e2e8f0; color:#2d3748; border-color:#cbd5e1;">${dadosFase.urlMidia}</div>`;
         }
         
-        document.getElementById("feedback").className = "feedback-box hidden";
+        // Reseta visual do feedback para a nova questão
+        const feedback = document.getElementById("feedback");
+        feedback.className = "feedback-box hidden";
+        feedback.innerHTML = "";
     }
 
     function verificarResposta(respostaUsuario) {
         const dadosFase = bancoPerguntas[faseAtual];
-        const itemFeedback = document.getElementById("feedback");
+        const feedback = document.getElementById("feedback");
         
+        feedback.classList.remove("hidden");
+
+        // Validação da resposta comparando com a propriedade 'ehReal'
         if (respostaUsuario === dadosFase.ehReal) {
-            let pontosGanhos = 100 * comboAcertos;
-            pontuacaoTotal += pontosGanhos;
-            itemFeedback.innerHTML = `🎉 Correto! +${pontosGanhos} pontos.<br><small>${dadosFase.explicacao}</small>`;
-            itemFeedback.className = "feedback-box correct-ans";
-            comboAcertos++; 
+            feedback.className = "feedback-box correct-ans";
+            feedback.innerHTML = `<strong>🎉 Correto!</strong><br>${dadosFase.explicacao}`;
+            
+            pontuacaoTotal += 10 * comboAcertos;
+            comboAcertos++;
         } else {
-            itemFeedback.innerHTML = `❌ Incorreto!<br><small>${dadosFase.explicacao}</small>`;
-            itemFeedback.className = "feedback-box wrong-ans";
-            comboAcertos = 1; // Quebra o multiplicador de acertos consecutivos
+            feedback.className = "feedback-box wrong-ans";
+            feedback.innerHTML = `<strong>❌ Errado!</strong><br>${dadosFase.explicacao}`;
+            
+            comboAcertos = 1; // Quebra o combo se errar
         }
 
-        // Atualiza elementos visuais do placar
+        // Atualiza a interface gráfica do painel de pontos
         document.getElementById("game-score").innerText = pontuacaoTotal;
         document.getElementById("game-streak").innerText = `${comboAcertos}x`;
 
-        // Dá tempo para o usuário ler a explicação antes de passar para a próxima fase
+        // Passa automaticamente para a próxima questão após 4 segundos
         setTimeout(() => {
-            faseAtual++;
-            if (faseAtual < bancoPerguntas.length) {
+            if (faseAtual < bancoPerguntas.length - 1) {
+                faseAtual++;
                 inicializarFase();
             } else {
-                finalizarJogo();
-            }
-        }, 5000);
-    }
-
-    function finalizarJogo() {
-        document.getElementById("quiz-card").innerHTML = `
-            <h3>🏆 Desafio Concluído!</h3>
-            <p>Sua pontuação consolidada foi de <strong>${pontuacaoTotal}</strong> pontos.</p>
-            <p>Você aprimorou seus critérios de proteção digital e identificação de desinformação!</p>
-            <button onclick="verificarResposta('real')" class="seu-botao-verde">Confiável / Real</button>
-<button onclick="verificarResposta('fake')" class="seu-botao-vermelho">Suspeito / Fake</button>
-
+                feedback.className = "feedback-box correct-ans";
