@@ -3,37 +3,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizForm = document.getElementById("quiz-form");
     const quizResult = document.getElementById("quiz-result");
 
-    // 1. Funcionalidade de Modo Escuro
+    // 1. Persistência Inteligente do Modo Escuro
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.body.setAttribute("data-theme", "dark");
+    }
+
     toggleButton.addEventListener("click", () => {
-        const currentTheme = document.body.getAttribute("data-theme");
-        if (currentTheme === "dark") {
+        const isDark = document.body.getAttribute("data-theme") === "dark";
+        if (isDark) {
             document.body.removeAttribute("data-theme");
+            localStorage.setItem("theme", "light");
         } else {
             document.body.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
         }
     });
 
-    // 2. Validador do Quiz de Fake News
+    // 2. Validação Avançada do Quiz com Feedback Visual
     quizForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        const q1 = quizForm.elements["q1"].value;
-        const q2 = quizForm.elements["q2"].value;
+        // Captura segura das opções selecionadas
+        const q1Data = quizForm.querySelector('input[name="q1"]:checked');
+        const q2Data = quizForm.querySelector('input[name="q2"]:checked');
 
-        // Verificação se o usuário respondeu todas as perguntas
-        if (!q1 || !q2) {
-            quizResult.textContent = "Por favor, responda todas as perguntas antes de enviar!";
-            quizResult.className = "error";
+        // Exibe erro se alguma questão ficou em branco
+        if (!q1Data || !q2Data) {
+            showFeedback("⚠️ Ops! Responda a todas as perguntas para simular o resultado.", "error");
             return;
         }
 
-        // Validação das respostas
-        if (q1 === "certo" && q2 === "certo") {
-            quizResult.textContent = "Parabéns! Você acertou todas as questões e sabe como combater a desinformação! 🎉";
-            quizResult.className = "success";
+        // Validação lógica
+        if (q1Data.value === "certo" && q2Data.value === "certo") {
+            showFeedback("🎉 Excelente! Você demonstrou forte senso crítico contra as Fake News!", "success");
         } else {
-            quizResult.textContent = "Algumas respostas estão incorretas. Atente-se aos sinais e tente novamente!";
-            quizResult.className = "error";
+            showFeedback("❌ Atenção! Algumas escolhas podem te expor a riscos digitais. Revise os cards informativos.", "error");
         }
     });
+
+    // Função auxiliar para exibição e controle de classes CSS
+    function showFeedback(message, type) {
+        quizResult.textContent = message;
+        quizResult.className = `result-box ${type}`; // remove a classe 'hidden' automaticamente
+    }
 });
