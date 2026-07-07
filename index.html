@@ -8,53 +8,79 @@
 </head>
 <body>
 
-    <header>
-        <h1>Cidadania Digital & IA</h1>
-        <p>O Impacto das Deepfakes e da Desinformação na Sociedade</p>
-        <button id="toggle-dark-mode">Alternar Modo Escuro</button>
+    <header class="main-header">
+        <div class="header-container">
+            <h1>Cidadania Digital & IA</h1>
+            <p>O Impacto das Deepfakes e da Desinformação na Sociedade</p>
+            <button id="toggle-dark-mode" aria-label="Alternar tema de cores">
+                <span class="theme-icon">🌓</span> Modo Escuro
+            </button>
+        </div>
     </header>
 
-    <main>
-        <section class="card-info">
-            <h2>O que são Deepfakes?</h2>
-            <p>Deepfakes são mídias (vídeos, imagens ou áudios) manipuladas de forma realista por Inteligência Artificial. Elas podem simular a voz e o rosto de pessoas reais dizendo ou fazendo coisas que nunca aconteceram.</p>
+    <main class="main-content">
+        <section class="info-grid">
+            <article class="card">
+                <div class="card-icon">🧠</div>
+                <h2>O que são Deepfakes?</h2>
+                <p>Deepfakes são mídias sintetizadas por Inteligência Artificial que imitam rostos e vozes humanas com realismo impressionante. Elas criam narrativas falsas altamente convincentes.</p>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🔍</div>
+                <h2>Como Identificar</h2>
+                <ul class="styled-list">
+                    <li>Piscar de olhos ausente ou artificial.</li>
+                    <li>Sincronia labial e áudio desalinhados.</li>
+                    <li>Falta de detalhes nas orelhas e cabelos.</li>
+                    <li>Sombras e iluminação inconsistentes no rosto.</li>
+                </ul>
+            </article>
         </section>
 
-        <section class="card-info">
-            <h2>Como Identificar Mídias Manipuladas</h2>
-            <ul>
-                <li>Piscar de olhos não natural ou ausência de piscadas.</li>
-                <li>Falhas na iluminação do rosto e sombras desalinhadas.</li>
-                <li>Áudio dessincronizado com o movimento dos lábios.</li>
-                <li>Bordas borradas ao redor do rosto ou cabelo.</li>
-            </ul>
-        </section>
-
-        <section class="quiz-section">
-            <h2>Quiz Interativo: É Fake ou Fato?</h2>
-            <p>Teste suas habilidades para identificar a desinformação na internet.</p>
+        <section class="quiz-container">
+            <div class="quiz-header">
+                <h2>⚡ Quiz de Cidadania Digital</h2>
+                <p>Avalie sua capacidade de identificar fraudes digitais.</p>
+            </div>
             
-            <form id="quiz-form">
-                <div class="question">
-                    <p>1. Se um vídeo de um político famoso parece real, posso compartilhar imediatamente sem checar?</p>
-                    <label><input type="radio" name="q1" value="errado"> Sim, se parece real é verdade.</label>
-                    <label><input type="radio" name="q1" value="certo"> Não, vídeos podem ser deepfakes e devem ser checados.</label>
+            <form id="quiz-form" novalidate>
+                <div class="form-group">
+                    <p class="question-text">1. Compartilhar um vídeo polêmico antes de validar a fonte é considerado:</p>
+                    <div class="options-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q1" value="errado">
+                            <span>Prática normal de engajamento social.</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q1" value="certo">
+                            <span>Desinformação e risco à segurança digital.</span>
+                        </label>
+                    </div>
                 </div>
 
-                <div class="question">
-                    <p>2. Qual é uma boa prática de segurança ao receber notícias bombásticas?</p>
-                    <label><input type="radio" name="q2" value="certo"> Pesquisar em sites de checagem confiáveis.</label>
-                    <label><input type="radio" name="q2" value="errado"> Repassar para todos os grupos de mensagens.</label>
+                <div class="form-group">
+                    <p class="question-text">2. Qual a forma mais segura de agir ao suspeitar de uma notícia?</p>
+                    <div class="options-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q2" value="certo">
+                            <span>Consultar consórcios de mídia e agências de checagem.</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q2" value="errado">
+                            <span>Acreditar se a imagem parecer realista.</span>
+                        </label>
+                    </div>
                 </div>
 
-                <button type="submit">Enviar Respostas</button>
+                <button type="submit" class="btn-submit">Validar Conhecimento</button>
             </form>
-            <div id="quiz-result" class="hidden"></div>
+            <div id="quiz-result" class="result-box hidden" role="alert"></div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 - Projeto de Recuperação Prática de Educação Digital e IA.</p>
+    <footer class="main-footer">
+        <p>&copy; 2026 • Componente de Educação Digital e IA • Projeto de Recuperação Prática</p>
     </footer>
 
     <script src="js/script.js"></script>
