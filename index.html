@@ -1,86 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cidadania Digital & IA</title>
+    <title>Cidadania Digital &amp; Inteligência Artificial</title>
+    <meta name="description" content="Conscientização sobre o Impacto das Deepfakes e da Desinformação na Sociedade.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
     <header class="main-header">
         <div class="header-container">
-            <h1>Cidadania Digital & IA</h1>
-            <p>O Impacto das Deepfakes e da Desinformação na Sociedade</p>
-            <button id="toggle-dark-mode" aria-label="Alternar tema de cores">
-                <span class="theme-icon">🌓</span> Modo Escuro
+            <h1>Cidadania Digital &amp; IA</h1>
+            <p>Conscientização sobre o Impacto das Deepfakes e da Desinformação na Sociedade</p>
+            <button id="toggle-dark-mode" aria-live="polite" aria-label="Ativar modo escuro">
+                <span class="theme-icon" aria-hidden="true">🌓</span> 
+                <span id="theme-text">Modo Escuro</span>
             </button>
         </div>
     </header>
 
-    <main class="main-content">
-        <section class="info-grid">
+    <main id="conteudo-principal" class="main-content">
+        
+        <!-- SEÇÃO 1: GRID INFORMATIVO -->
+        <section class="info-grid" aria-label="Conceitos sobre mídias sintéticas">
             <article class="card">
-                <div class="card-icon">🧠</div>
-                <h2>O que são Deepfakes?</h2>
-                <p>Deepfakes são mídias sintetizadas por Inteligência Artificial que imitam rostos e vozes humanas com realismo impressionante. Elas criam narrativas falsas altamente convincentes.</p>
+                <div class="card-icon" aria-hidden="true">🧠</div>
+                <h3>O que são Deepfakes?</h3>
+                <p>São mídias sintéticas (vídeos, áudios ou imagens) geradas por algoritmos de Inteligência Artificial profunda. Elas conseguem clonar rostos e vozes humanas com extrema precisão, facilitando a criação de conteúdos falsos difíceis de rastrear.</p>
             </article>
 
             <article class="card">
-                <div class="card-icon">🔍</div>
-                <h2>Como Identificar</h2>
+                <div class="card-icon" aria-hidden="true">🔍</div>
+                <h3>Como Identificar</h3>
                 <ul class="styled-list">
-                    <li>Piscar de olhos ausente ou artificial.</li>
-                    <li>Sincronia labial e áudio desalinhados.</li>
-                    <li>Falta de detalhes nas orelhas e cabelos.</li>
-                    <li>Sombras e iluminação inconsistentes no rosto.</li>
+                    <li>Falta de sincronia precisa entre a fala e os movimentos dos lábios.</li>
+                    <li>Texturas excessivamente lisas na pele ou contornos levemente borrados.</li>
+                    <li>Iluminação inconsistente ou sombras que não acompanham os movimentos.</li>
+                    <li>Padrão de piscada de olhos ausente ou geometricamente artificial.</li>
                 </ul>
             </article>
         </section>
 
-        <section class="quiz-container">
+        <!-- SEÇÃO 2: GUIA DE SEGURANÇA -->
+        <section class="security-box" aria-labelledby="titulo-seguranca">
+            <h3 id="titulo-seguranca">🛡️ Guia de Segurança Digital</h3>
+            <p>Siga estes passos essenciais antes de interagir ou compartilhar conteúdos suspeitos na internet:</p>
+            <ol class="step-list">
+                <li><strong>Não aja pela emoção:</strong> Conteúdos desinformativos apelam intencionalmente para o medo, raiva ou senso de urgência.</li>
+                <li><strong>Cruze informações:</strong> Busque o mesmo fato em motores de pesquisa para verificar se portais de notícia confiáveis validaram o ocorrido.</li>
+                <li><strong>Verifique a URL:</strong> Links maliciosos costumam clonar o design de grandes portais mudando apenas letras discretas no endereço web.</li>
+            </ol>
+        </section>
+
+        <!-- SEÇÃO 3: QUIZ INTERATIVO GAMIFICADO -->
+        <section class="quiz-container" aria-labelledby="titulo-quiz">
             <div class="quiz-header">
-                <h2>⚡ Quiz de Cidadania Digital</h2>
-                <p>Avalie sua capacidade de identificar fraudes digitais.</p>
+                <h2 id="titulo-quiz">⚡ Quiz de Cidadania Digital</h2>
+                <p>Coloque seu senso crítico à prova e veja se você sabe detectar fraudes virtuais.</p>
             </div>
             
             <form id="quiz-form" novalidate>
-                <div class="form-group">
-                    <p class="question-text">1. Compartilhar um vídeo polêmico antes de validar a fonte é considerado:</p>
-                    <div class="options-group">
+                <!-- Pergunta 1 -->
+                <div class="form-group" data-question="q1">
+                    <div class="question-header">
+                        <p id="txt-q1" class="question-text">1. Ao receber um vídeo impactante em um aplicativo de mensagens, qual deve ser sua primeira atitude?</p>
+                        <span class="feedback-badge" aria-hidden="true"></span>
+                    </div>
+                    <div class="options-group" role="radiogroup" aria-labelledby="txt-q1" id="opts-q1">
                         <label class="radio-label">
-                            <input type="radio" name="q1" value="errado">
-                            <span>Prática normal de engajamento social.</span>
+                            <input type="radio" name="q1" value="errado" required>
+                            <span>Compartilhar imediatamente para alertar conhecidos.</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="q1" value="certo">
-                            <span>Desinformação e risco à segurança digital.</span>
+                            <input type="radio" name="q1" value="certo" required>
+                            <span>Duvidar e checar o fato em agências de verificação confiáveis.</span>
                         </label>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <p class="question-text">2. Qual a forma mais segura de agir ao suspeitar de uma notícia?</p>
-                    <div class="options-group">
+                <!-- Pergunta 2 -->
+                <div class="form-group" data-question="q2">
+                    <div class="question-header">
+                        <p id="txt-q2" class="question-text">2. Qual o principal perigo do uso desregulado de deepfakes na sociedade?</p>
+                        <span class="feedback-badge" aria-hidden="true"></span>
+                    </div>
+                    <div class="options-group" role="radiogroup" aria-labelledby="txt-q2" id="opts-q2">
                         <label class="radio-label">
-                            <input type="radio" name="q2" value="certo">
-                            <span>Consultar consórcios de mídia e agências de checagem.</span>
+                            <input type="radio" name="q2" value="certo" required>
+                            <span>Manipulação da opinião pública e danos graves à reputação de pessoas.</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="q2" value="errado">
-                            <span>Acreditar se a imagem parecer realista.</span>
+                            <input type="radio" name="q2" value="errado" required>
+                            <span>Apenas o aumento do entretenimento e memes na internet.</span>
                         </label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Validar Conhecimento</button>
+                <button type="submit" class="btn-submit">Enviar e Avaliar Respostas</button>
             </form>
-            <div id="quiz-result" class="result-box hidden" role="alert"></div>
+            <div id="quiz-result" class="result-box hidden" role="alert" tabindex="-1"></div>
         </section>
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2026 • Componente de Educação Digital e IA • Projeto de Recuperação Prática</p>
+        <p>&copy; 2026 • Componente Curricular de Educação Digital e IA • Atividade de Recuperação Prática</p>
     </footer>
 
     <script src="js/script.js"></script>
